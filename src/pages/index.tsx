@@ -1,40 +1,40 @@
-import Editor from '@monaco-editor/react';
+import Editor, { useMonaco } from '@monaco-editor/react';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-export default function Home() {
-  const [isLoading, setLoading] = useState(true);
-  const [defaultCode, setDefaultCode] = useState<string>();
+const DEFAULT_CODE_URL =
+  'https://raw.githubusercontent.com/dodgez/dodgez-dev/main/src/pages/index.tsx';
+
+export async function getServerSideProps() {
+  const defaultCode = await fetch(DEFAULT_CODE_URL)
+    .then((response) => response.text())
+    .catch(() => undefined);
+
+  return { props: { defaultCode } };
+}
+
+export default function Home({ defaultCode }: { defaultCode?: string }) {
+  const monaco = useMonaco();
+
   useEffect(() => {
-    fetch(
-      'https://raw.githubusercontent.com/dodgez/dodgez-dev/main/src/pages/index.tsx',
-    )
-      .then((response) => response.text())
-      .then((data) => {
-        setDefaultCode(data);
-        setLoading(false);
-      })
-      .catch((e) => {
-        console.error(e);
-        setLoading(false);
+    if (monaco) {
+      monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+        jsx: monaco.languages.typescript.JsxEmit.Preserve,
       });
-  }, []);
+    }
+  }, [monaco]);
 
   return (
     <>
       <Head>
         <title>Dodgez Dev</title>
       </Head>
-      {isLoading ? (
-        'Loading...'
-      ) : (
-        <Editor
-          defaultLanguage="javascript"
-          defaultValue={defaultCode}
-          height="100vh"
-          theme="vs-dark"
-        />
-      )}
+      <Editor
+        defaultPath={DEFAULT_CODE_URL.split('/').pop()}
+        defaultValue={defaultCode}
+        height="100vh"
+        theme="vs-dark"
+      />
     </>
   );
 }
