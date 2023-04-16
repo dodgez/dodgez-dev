@@ -1,4 +1,5 @@
 import Editor, { useMonaco } from '@monaco-editor/react';
+import Box from '@mui/material/Box';
 import Head from 'next/head';
 import { useEffect } from 'react';
 
@@ -29,12 +30,13 @@ export default function Home({ defaultCode }: { defaultCode?: string }) {
       <Head>
         <title>Dodgez Dev</title>
       </Head>
-      <Editor
-        defaultPath={DEFAULT_CODE_URL.split('/').pop()}
-        defaultValue={defaultCode}
-        height="100vh"
-        theme="vs-dark"
-      />
+      <Box flexGrow={1} height="100%">
+        <Editor
+          defaultPath={DEFAULT_CODE_URL.split('/').pop()}
+          defaultValue={defaultCode}
+          theme="vs-dark"
+        />
+      </Box>
     </>
   );
 }
