@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 const DEFAULT_CODE_URL =
   'https://raw.githubusercontent.com/dodgez/dodgez-dev/main/src/pages/index.tsx';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const defaultCode = await fetch(DEFAULT_CODE_URL)
     .then((response) => response.text())
     .catch(() => undefined);
@@ -14,7 +14,7 @@ export async function getServerSideProps() {
   return { props: { defaultCode } };
 }
 
-export default function Home({ defaultCode }: { defaultCode?: string }) {
+export default function Home({ defaultCode }: { defaultCode: string }) {
   const monaco = useMonaco();
 
   useEffect(() => {

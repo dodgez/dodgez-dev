@@ -6,6 +6,7 @@ export default function Document() {
       <Head>
         <meta name="description" content="Zach Dodge's personal website" />
         <link rel="icon" href="favicon.ico" />
+        <style>{'html { background-color: black }'}</style>
       </Head>
       <body>
         <Main />

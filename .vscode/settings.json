@@ -1,3 +1,7 @@
 {
-  "cSpell.words": ["fontsource"]
+  "cSpell.words": [
+    "fontsource"
+  ],
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
