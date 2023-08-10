@@ -5,7 +5,9 @@ export default function AboutBlurb() {
   return (
     <Stack spacing={4}>
       <Stack>
-        <Typography variant="h4">Zachary Dodge</Typography>
+        <Typography color="primary" variant="h4">
+          Zachary Dodge
+        </Typography>
         <em>Front End Engineer II at Amazon Web Services (AWS)</em>
       </Stack>
       <Typography>

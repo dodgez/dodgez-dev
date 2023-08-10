@@ -27,7 +27,9 @@ export default function Education() {
     <Stack spacing={4}>
       {education.map((education) => (
         <Stack key={education.degree} spacing={1}>
-          <Typography variant="h5">{education.school}</Typography>
+          <Typography color="secondary" variant="h5">
+            {education.school}
+          </Typography>
           <Typography>{education.degree}</Typography>
           <em>
             {education.startYear}&nbsp;-&nbsp;{education.endYear}

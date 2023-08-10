@@ -4,6 +4,7 @@ import Experience from '@/components/Experience';
 import ProfileBlurb from '@/components/ProfileBlurb';
 import Tech from '@/components/Tech';
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
@@ -61,7 +62,9 @@ export default function Home() {
         .sort((tabA, tabB) => tabA.flatOrder - tabB.flatOrder)
         .map((tab) => (
           <Stack key={tab.label} spacing={2}>
-            <Typography variant="h4">{tab.label}</Typography>
+            <Typography color="primary" variant="h4">
+              {tab.label}
+            </Typography>
             <tab.content />
           </Stack>
         )),
@@ -76,9 +79,11 @@ export default function Home() {
       <Box p={8}>
         <Stack spacing={8}>
           <ProfileBlurb />
+          <Divider />
           <AboutBlurb />
+          <Divider />
           <Stack spacing={1}>
-            <Box display="inline">
+            {/* <Box display="inline">
               <FormControlLabel
                 control={
                   <Switch
@@ -89,9 +94,9 @@ export default function Home() {
                 }
                 label="Tabbed view"
               />
-            </Box>
+            </Box> */}
             {!isTabbedView ? (
-              <Stack pt={6} spacing={8}>
+              <Stack divider={<Divider />} spacing={8}>
                 {flatTabs}
               </Stack>
             ) : (

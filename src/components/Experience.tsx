@@ -56,7 +56,9 @@ export default function Experience() {
     <Stack spacing={4}>
       {experience.map((experience) => (
         <Stack key={experience.company} spacing={1}>
-          <Typography variant="h5">{experience.company}</Typography>
+          <Typography color="secondary" variant="h5">
+            {experience.company}
+          </Typography>
           <Typography>{experience.title}</Typography>
           <em>
             {experience.startDate}&nbsp;-&nbsp;{experience.endDate}
