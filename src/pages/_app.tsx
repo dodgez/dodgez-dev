@@ -69,11 +69,16 @@ export default function App({ Component, pageProps }: AppProps) {
                 ))}
               </Stack>
             </Box>
-            <Box>
-              <Link href="https://github.com/dodgez/dodgez-dev" target="_blank">
+            <Stack direction="row" spacing={2}>
+              <Box id="tab-toggle-portal" />
+              <Link
+                href="https://github.com/dodgez/dodgez-dev"
+                pt={1}
+                target="_blank"
+              >
                 Source
               </Link>
-            </Box>
+            </Stack>
           </Toolbar>
         </AppBar>
         <Component {...pageProps} />

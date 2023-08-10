@@ -1,4 +1,5 @@
 import AboutBlurb from '@/components/AboutBlurb';
+import ClientPortal from '@/components/ClientPortal';
 import Education from '@/components/Education';
 import Experience from '@/components/Experience';
 import ProfileBlurb from '@/components/ProfileBlurb';
@@ -83,18 +84,20 @@ export default function Home() {
           <AboutBlurb />
           <Divider />
           <Stack spacing={1}>
-            {/* <Box display="inline">
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={isTabbedView}
-                    onChange={handleViewChange}
-                    name="tab-view"
-                  />
-                }
-                label="Tabbed view"
-              />
-            </Box> */}
+            <ClientPortal selector="#tab-toggle-portal">
+              <Box display="inline">
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={isTabbedView}
+                      onChange={handleViewChange}
+                      name="tab-view"
+                    />
+                  }
+                  label="Tabbed view"
+                />
+              </Box>
+            </ClientPortal>
             {!isTabbedView ? (
               <Stack divider={<Divider />} spacing={8}>
                 {flatTabs}
