@@ -10,6 +10,7 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
+import { Analytics } from '@vercel/analytics/react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import NextLink from 'next/link';
@@ -82,6 +83,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </Toolbar>
         </AppBar>
         <Component {...pageProps} />
+        <Analytics />
       </Box>
     </ThemeProvider>
   );
