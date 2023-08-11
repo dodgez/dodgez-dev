@@ -22,8 +22,6 @@ const darkTheme = createTheme({
   },
 });
 
-const pages = [{ href: '/playground', label: 'Code Playground' }];
-
 export default function App({ Component, pageProps }: AppProps) {
   const pathname = usePathname();
 
@@ -51,23 +49,16 @@ export default function App({ Component, pageProps }: AppProps) {
             </NextLink>
             <Box display="flex" flexGrow={1} ml={4}>
               <Stack direction="row" spacing={2}>
-                {pages.map((page) => (
-                  <NextLink
-                    href={page.href}
-                    key={page.href}
-                    legacyBehavior
-                    passHref
+                <NextLink href="/playground" legacyBehavior passHref>
+                  <Link
+                    sx={{
+                      color: 'white',
+                      textDecoration: 'none',
+                    }}
                   >
-                    <Link
-                      sx={{
-                        color: 'white',
-                        textDecoration: 'none',
-                      }}
-                    >
-                      {page.label}
-                    </Link>
-                  </NextLink>
-                ))}
+                    Code Playground
+                  </Link>
+                </NextLink>
               </Stack>
             </Box>
             <Stack direction="row" spacing={2}>
