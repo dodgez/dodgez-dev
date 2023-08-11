@@ -5,6 +5,8 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 
+import ProfileImage from '../../public/profile.jpg';
+
 const PROFILE_PIC_SIZE = 200;
 
 export default function ProfileBlurb() {
@@ -25,12 +27,7 @@ export default function ProfileBlurb() {
               width: PROFILE_PIC_SIZE + 'px',
             }}
           >
-            <Image
-              alt="Profile picture"
-              height={PROFILE_PIC_SIZE}
-              src="/profile.jpg"
-              width={PROFILE_PIC_SIZE}
-            />
+            <Image alt="Profile picture" priority src={ProfileImage} />
           </div>
           <Stack spacing={1} sx={{ textAlign: 'center' }}>
             <Typography color="primary">Zachary Dodge</Typography>
