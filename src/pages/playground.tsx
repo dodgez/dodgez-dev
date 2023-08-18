@@ -1,20 +1,25 @@
 import Editor, { useMonaco } from '@monaco-editor/react';
 import Box from '@mui/material/Box';
+import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { useEffect } from 'react';
 
 const DEFAULT_CODE_URL =
   'https://raw.githubusercontent.com/dodgez/dodgez-dev/main/src/pages/index.tsx';
 
-export async function getServerSideProps() {
+export const getStaticProps: GetStaticProps<{
+  defaultCode: string | undefined;
+}> = async () => {
   const defaultCode = await fetch(DEFAULT_CODE_URL)
     .then((response) => response.text())
     .catch(() => undefined);
 
   return { props: { defaultCode } };
-}
+};
 
-export default function Home({ defaultCode }: { defaultCode?: string }) {
+export default function Home({
+  defaultCode,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const monaco = useMonaco();
 
   useEffect(() => {
