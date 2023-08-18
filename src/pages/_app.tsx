@@ -29,7 +29,7 @@ try {
     enableXRay: false,
   };
 
-  const APPLICATION_ID: string = 'bf6fb62e-9636-47e8-a3f7-0e7bf944bb4d';
+  const APPLICATION_ID: string = 'a799e5f7-b6b1-407e-949d-3bede496502f';
   const APPLICATION_VERSION: string = '1.0.0';
   const APPLICATION_REGION: string = 'us-west-2';
 
