@@ -11,10 +11,34 @@ import Stack from '@mui/material/Stack';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import { Analytics } from '@vercel/analytics/react';
+import { AwsRum, AwsRumConfig } from 'aws-rum-web';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
+
+try {
+  const config: AwsRumConfig = {
+    sessionSampleRate: 1,
+    guestRoleArn:
+      'arn:aws:iam::181966156320:role/dodgez.dev-RUM-UnauthenticatedRole',
+    identityPoolId: 'us-west-2:563d4f61-afdc-4524-b0b0-9e3229c79a1f',
+    endpoint: 'https://dataplane.rum.us-west-2.amazonaws.com',
+    telemetries: ['errors', 'http', 'performance'],
+    allowCookies: true,
+    enableXRay: false,
+  };
+
+  const APPLICATION_ID: string = 'bf6fb62e-9636-47e8-a3f7-0e7bf944bb4d';
+  const APPLICATION_VERSION: string = '1.0.0';
+  const APPLICATION_REGION: string = 'us-west-2';
+
+  if (window.location.hostname === 'www.dodgez.dev') {
+    new AwsRum(APPLICATION_ID, APPLICATION_VERSION, APPLICATION_REGION, config);
+  }
+} catch (error) {
+  // Ignore errors thrown during CloudWatch RUM web client initialization
+}
 
 const darkTheme = createTheme({
   palette: {
