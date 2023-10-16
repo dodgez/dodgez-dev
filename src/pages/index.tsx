@@ -4,6 +4,9 @@ import Education from '@/components/Education';
 import Experience from '@/components/Experience';
 import ProfileBlurb from '@/components/ProfileBlurb';
 import Tech from '@/components/Tech';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -11,20 +14,27 @@ import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Head from 'next/head';
 import {
   ChangeEvent,
   SyntheticEvent,
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
 
 export default function Home() {
-  const [isTabbedView, setTabbedView] = useState(false);
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+  const [isTabbedView, setTabbedView] = useState(isSmall);
+  useEffect(() => {
+    if (isSmall) {
+      setTabbedView(false);
+    }
+  }, [isSmall]);
   const handleViewChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) =>
       setTabbedView(event.target.checked),
@@ -75,7 +85,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Dodgez Dev</title>
+        <title>Zachary Dodge&apos;s Website</title>
       </Head>
       <Box p={8}>
         <Stack spacing={8}>
@@ -85,7 +95,12 @@ export default function Home() {
           <Divider />
           <Stack spacing={1}>
             <ClientPortal selector="#tab-toggle-portal">
-              <Box display="inline">
+              <Box
+                sx={(theme) => ({
+                  [theme.breakpoints.down('sm')]: { display: 'none' },
+                  [theme.breakpoints.up('sm')]: { display: 'inline' },
+                })}
+              >
                 <FormControlLabel
                   control={
                     <Switch

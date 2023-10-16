@@ -3,13 +3,15 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import GitHub from '@mui/icons-material/GitHub';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
+import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Analytics } from '@vercel/analytics/react';
 import { AwsRum, AwsRumConfig } from 'aws-rum-web';
 import type { AppProps } from 'next/app';
@@ -40,17 +42,29 @@ try {
   // Ignore errors thrown during CloudWatch RUM web client initialization
 }
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
-
 export default function App({ Component, pageProps }: AppProps) {
   const pathname = usePathname();
 
+  const lightTheme = createTheme({
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#113946',
+      },
+      secondary: {
+        main: '#bca37f',
+      },
+      info: {
+        main: '#f5f5f5',
+      },
+      background: {
+        default: '#f5f5f5',
+      },
+    },
+  });
+
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={lightTheme}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -62,38 +76,40 @@ export default function App({ Component, pageProps }: AppProps) {
       >
         <AppBar position="relative">
           <Toolbar>
-            <NextLink href="/" legacyBehavior passHref>
-              <Link
-                sx={{
-                  textDecoration: 'none',
-                }}
-              >
-                dodgez.dev
-              </Link>
-            </NextLink>
-            <Box display="flex" flexGrow={1} ml={4}>
-              <Stack direction="row" spacing={2}>
-                <NextLink href="/playground" legacyBehavior passHref>
-                  <Link
-                    sx={{
-                      color: 'white',
-                      textDecoration: 'none',
-                    }}
-                  >
-                    Code Playground
-                  </Link>
-                </NextLink>
-              </Stack>
-            </Box>
+            <Stack direction="row" display="flex" flexGrow={1} spacing={2}>
+              <NextLink href="/" legacyBehavior passHref>
+                <Link
+                  sx={{
+                    color: lightTheme.palette.background.default,
+                    textDecoration: pathname === '/' ? 'underline' : 'none',
+                  }}
+                >
+                  Home
+                </Link>
+              </NextLink>
+              <NextLink href="/wordle-filter" legacyBehavior passHref>
+                <Link
+                  sx={{
+                    color: lightTheme.palette.background.default,
+                    textDecoration:
+                      pathname === '/wordle-filter' ? 'underline' : 'none',
+                  }}
+                >
+                  Wordle Filter
+                </Link>
+              </NextLink>
+            </Stack>
             <Stack direction="row" spacing={2}>
               <Box id="tab-toggle-portal" />
-              <Link
-                href="https://github.com/dodgez/dodgez-dev"
-                pt={1}
-                target="_blank"
+              <IconButton
+                aria-label="github source"
+                onClick={() =>
+                  window.open('https://github.com/dodgez/dodgez-dev', '_blank')
+                }
+                role="link"
               >
-                Source
-              </Link>
+                <GitHub color="info" />
+              </IconButton>
             </Stack>
           </Toolbar>
         </AppBar>

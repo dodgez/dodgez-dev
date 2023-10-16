@@ -31,9 +31,9 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Tech() {
   return (
-    <Grid container margin="auto" maxWidth="md" spacing={2}>
+    <Grid container maxWidth="md" spacing={2}>
       {tech.map((tech) => (
-        <Grid key={tech} xs={3}>
+        <Grid key={tech} xs={6} sm={4} md={3}>
           <Item>
             <Typography>{tech}</Typography>
           </Item>
