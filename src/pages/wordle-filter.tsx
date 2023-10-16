@@ -1,6 +1,5 @@
-import OpenInNew from '@mui/icons-material/OpenInNew';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import Button from '@mui/lab/LoadingButton';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
@@ -40,8 +39,14 @@ export default function WordleFilter() {
   }, []);
 
   const [filter, setFilter] = useState('');
+  const [wordDefinition, setWordDefinition] = useState<
+    string | null | undefined
+  >(undefined);
   const onFilterChange = useCallback(
-    ({ target }: ChangeEvent<HTMLInputElement>) => setFilter(target.value),
+    ({ target }: ChangeEvent<HTMLInputElement>) => {
+      setFilter(target.value);
+      setWordDefinition(undefined);
+    },
     [],
   );
 
@@ -55,6 +60,32 @@ export default function WordleFilter() {
       filterLength > 0 ? filteredWords.slice(0, filterLength) : filteredWords;
     return [slicedWords, slicedWords.length, filteredWords.length];
   }, [filter, filteredWordsLength, words]);
+
+  const [isDefinitionLoading, setDefinitionLoading] = useState(false);
+  const fetchDefinition = useCallback(() => {
+    setDefinitionLoading(true);
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${filter}`)
+      .then((res) => {
+        if (res.status !== 200) {
+          return Promise.resolve(null);
+        }
+        return res.json();
+      })
+      .then((definitions) => {
+        if (!definitions || definitions.length === 0) {
+          setWordDefinition(null);
+        } else {
+          setWordDefinition(
+            definitions[0].meanings[0].definitions[0].definition,
+          );
+        }
+        setDefinitionLoading(false);
+      })
+      .catch(() => {
+        setWordDefinition(null);
+        setDefinitionLoading(false);
+      });
+  }, [filter]);
 
   return (
     <>
@@ -140,11 +171,23 @@ export default function WordleFilter() {
           </Box>
         ) : (
           <Container maxWidth="sm" sx={{ marginTop: 4 }}>
-            <Button
-              endIcon={<OpenInNew />}
-              href={`https://www.oed.com/search/dictionary/?scope=Entries&q=${filter}`}
-              target="_blank"
-            >{`Check Oxford Dictionary for ${filter}`}</Button>
+            {wordDefinition === undefined || isDefinitionLoading ? (
+              <Button
+                disabled={isDefinitionLoading}
+                loading={isDefinitionLoading}
+                onClick={fetchDefinition}
+                variant="contained"
+              >{`Fetch meaning of ${filter}`}</Button>
+            ) : wordDefinition === null ? (
+              <Typography marginTop={2}>
+                No definition found or an error occurred.
+              </Typography>
+            ) : (
+              <Typography marginTop={2}>
+                The first meaning found:{' '}
+                <Typography component="em">{wordDefinition}</Typography>
+              </Typography>
+            )}
           </Container>
         )}
       </Box>
