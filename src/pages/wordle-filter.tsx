@@ -1,5 +1,6 @@
-import Box from '@mui/material/Box';
+import useWordDefinition from '@/hooks/useWordDefinition';
 import Button from '@mui/lab/LoadingButton';
+import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
@@ -39,13 +40,13 @@ export default function WordleFilter() {
   }, []);
 
   const [filter, setFilter] = useState('');
-  const [wordDefinition, setWordDefinition] = useState<
-    string | null | undefined
-  >(undefined);
+  const [submitFilter, setSubmitFilter] = useState<string | undefined>(
+    undefined,
+  );
   const onFilterChange = useCallback(
     ({ target }: ChangeEvent<HTMLInputElement>) => {
       setFilter(target.value);
-      setWordDefinition(undefined);
+      setSubmitFilter(undefined);
     },
     [],
   );
@@ -61,31 +62,16 @@ export default function WordleFilter() {
     return [slicedWords, slicedWords.length, filteredWords.length];
   }, [filter, filteredWordsLength, words]);
 
-  const [isDefinitionLoading, setDefinitionLoading] = useState(false);
   const fetchDefinition = useCallback(() => {
-    setDefinitionLoading(true);
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${filter}`)
-      .then((res) => {
-        if (res.status !== 200) {
-          return Promise.resolve(null);
-        }
-        return res.json();
-      })
-      .then((definitions) => {
-        if (!definitions || definitions.length === 0) {
-          setWordDefinition(null);
-        } else {
-          setWordDefinition(
-            definitions[0].meanings[0].definitions[0].definition,
-          );
-        }
-        setDefinitionLoading(false);
-      })
-      .catch(() => {
-        setWordDefinition(null);
-        setDefinitionLoading(false);
-      });
+    setSubmitFilter(filter);
   }, [filter]);
+
+  const {
+    data: wordDefinition,
+    isError,
+    isFetching: isDefinitionLoading,
+    refetch,
+  } = useWordDefinition(submitFilter);
 
   return (
     <>
@@ -179,12 +165,15 @@ export default function WordleFilter() {
                 variant="contained"
               >{`Fetch meaning of ${filter}`}</Button>
             ) : wordDefinition === null ? (
-              <Typography marginTop={2}>
-                No definition found or an error occurred.
-              </Typography>
+              <Typography marginTop={2}>No definition found.</Typography>
+            ) : isError ? (
+              <>
+                <Typography marginTop={2}>An unexpected error occurred.</Typography>
+                <Button onClick={() => refetch()} sx={{ marginTop: 2 }}>Retry</Button>
+              </>
             ) : (
               <Typography marginTop={2}>
-                The first meaning found:{' '}
+                First meaning found:{' '}
                 <Typography component="em">{wordDefinition}</Typography>
               </Typography>
             )}

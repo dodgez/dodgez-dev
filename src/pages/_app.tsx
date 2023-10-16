@@ -12,6 +12,8 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Analytics } from '@vercel/analytics/react';
 import { AwsRum, AwsRumConfig } from 'aws-rum-web';
 import type { AppProps } from 'next/app';
@@ -41,6 +43,15 @@ try {
 } catch (error) {
   // Ignore errors thrown during CloudWatch RUM web client initialization
 }
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+  },
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   const pathname = usePathname();
@@ -113,7 +124,10 @@ export default function App({ Component, pageProps }: AppProps) {
             </Stack>
           </Toolbar>
         </AppBar>
-        <Component {...pageProps} />
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
         <Analytics />
       </Box>
     </ThemeProvider>
