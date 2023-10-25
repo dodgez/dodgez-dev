@@ -1,8 +1,10 @@
 import useWordDefinition from '@/hooks/useWordDefinition';
+import ClearIcon from '@mui/icons-material/Close';
 import Button from '@mui/lab/LoadingButton';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -85,6 +87,19 @@ export default function WordleFilter() {
           </Typography>
           <TextField
             fullWidth
+            InputProps={{
+              endAdornment:
+                filter !== '' ? (
+                  <IconButton
+                    onClick={() => {
+                      setFilter('');
+                      setSubmitFilter(undefined);
+                    }}
+                  >
+                    <ClearIcon />
+                  </IconButton>
+                ) : null,
+            }}
             label="Filter"
             onChange={onFilterChange}
             placeholder="E.g. agent"
@@ -168,8 +183,12 @@ export default function WordleFilter() {
               <Typography marginTop={2}>No definition found.</Typography>
             ) : isError ? (
               <>
-                <Typography marginTop={2}>An unexpected error occurred.</Typography>
-                <Button onClick={() => refetch()} sx={{ marginTop: 2 }}>Retry</Button>
+                <Typography marginTop={2}>
+                  An unexpected error occurred.
+                </Typography>
+                <Button onClick={() => refetch()} sx={{ marginTop: 2 }}>
+                  Retry
+                </Button>
               </>
             ) : (
               <Typography marginTop={2}>
