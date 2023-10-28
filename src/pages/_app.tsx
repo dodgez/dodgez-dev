@@ -26,14 +26,14 @@ try {
     sessionSampleRate: 1,
     guestRoleArn:
       'arn:aws:iam::181966156320:role/dodgez.dev-RUM-UnauthenticatedRole',
-    identityPoolId: 'us-west-2:563d4f61-afdc-4524-b0b0-9e3229c79a1f',
+    identityPoolId: 'us-west-2:525094d5-bebc-4263-a3a5-2b47344037af',
     endpoint: 'https://dataplane.rum.us-west-2.amazonaws.com',
     telemetries: ['errors', 'http', 'performance'],
     allowCookies: true,
     enableXRay: false,
   };
 
-  const APPLICATION_ID: string = 'a799e5f7-b6b1-407e-949d-3bede496502f';
+  const APPLICATION_ID: string = '3fc06966-b1de-43eb-ad4a-332d91ba3746';
   const APPLICATION_VERSION: string = '1.0.0';
   const APPLICATION_REGION: string = 'us-west-2';
 
