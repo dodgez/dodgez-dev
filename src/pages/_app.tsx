@@ -63,7 +63,7 @@ export default function App({ Component, pageProps }: AppProps) {
         main: '#113946',
       },
       secondary: {
-        main: '#bca37f',
+        main: '#5c431f',
       },
       info: {
         main: '#f5f5f5',
