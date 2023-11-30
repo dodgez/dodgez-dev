@@ -36,7 +36,7 @@ export default function WordleFilter() {
     })
       .then((res) => res.json())
       .then((words) => {
-        setWords(words.sort());
+        setWords(words.sort().map((word: string) => word.toLowerCase()));
         setLoading(false);
       });
   }, []);
@@ -47,7 +47,7 @@ export default function WordleFilter() {
   );
   const onFilterChange = useCallback(
     ({ target }: ChangeEvent<HTMLInputElement>) => {
-      setFilter(target.value);
+      setFilter(target.value.toLowerCase());
       setSubmitFilter(undefined);
     },
     [],
