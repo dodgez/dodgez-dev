@@ -88,7 +88,7 @@ export default function Home() {
         <title>Zachary Dodge&apos;s Website</title>
       </Head>
       <Box p={8}>
-        <Stack spacing={8}>
+        <Stack spacing={4}>
           <ProfileBlurb />
           <Divider />
           <AboutBlurb />
@@ -105,6 +105,7 @@ export default function Home() {
                   control={
                     <Switch
                       checked={isTabbedView}
+                      color="info"
                       onChange={handleViewChange}
                       name="tab-view"
                     />
@@ -114,7 +115,7 @@ export default function Home() {
               </Box>
             </ClientPortal>
             {!isTabbedView ? (
-              <Stack divider={<Divider />} spacing={8}>
+              <Stack divider={<Divider />} spacing={4}>
                 {flatTabs}
               </Stack>
             ) : (
