@@ -14,7 +14,6 @@ const tech = [
   'AWS',
   'GraphQL',
   'SQL',
-  'PostgreSQL',
   'Python',
   'Rust',
   'Haskell',
