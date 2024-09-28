@@ -18,5 +18,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["package.json", "vite.config.ts", "vitest.setup.ts"]
+  "include": [
+    "package.json",
+    "vercel.json",
+    "vite.config.ts",
+    "vitest.setup.ts"
+  ]
 }
