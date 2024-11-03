@@ -1,4 +1,7 @@
 ---
+// eslint-disable-next-line import/no-unresolved
+import { ViewTransitions } from 'astro:transitions';
+
 import routes from '../utils/routes';
 
 interface Props {
@@ -17,6 +20,7 @@ const { page } = Astro.props;
     <link href="/favicon.ico" rel="icon" type="image/svg+xml" />
     <meta content={Astro.generator} name="generator" />
     <title>{page.title}</title>
+    <ViewTransitions />
   </head>
   <body class="bg-slate-100" style="min-height: 100vh">
     <div class="p-4 text-white navbar bg-base-content">
