@@ -4,6 +4,11 @@ const routes = {
     text: 'About me',
     title: 'About Zachary Dodge',
   },
+  buyCoffee: {
+    path: '/buyCoffee',
+    text: 'Buy me coffee',
+    title: 'Buy me coffee',
+  },
   'wordle-filter': {
     path: '/wordle-filter',
     text: 'Wordle Filter',

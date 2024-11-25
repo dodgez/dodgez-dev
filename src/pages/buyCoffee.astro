@@ -1,0 +1,11 @@
+---
+import StripeCheckout from '../components/StripeCheckout';
+import Layout from '../layouts/Layout.astro';
+import routes from '../utils/routes';
+---
+
+<Layout page={routes.buyCoffee}>
+  <main class="max-w-6xl p-16 mx-auto">
+    <StripeCheckout client:only="react" />
+  </main>
+</Layout>
