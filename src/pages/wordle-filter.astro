@@ -1,0 +1,12 @@
+---
+import Filter from '../components/Filter';
+import Layout from '../layouts/Layout.astro';
+import routes from '../utils/routes';
+---
+
+<Layout page={routes['wordle-filter']}>
+	<main class="max-w-6xl p-16 mx-auto justify-items-center">
+		<p>Type a word to check if it has been used as a Wordle answer before</p>
+		<Filter client:load />
+	</main>
+</Layout>
