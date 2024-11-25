@@ -5,9 +5,9 @@ export default function Filter() {
   const [isLoading, setLoading] = useState(true);
   const [words, setWords] = useState<string[]>([]);
   useEffect(() => {
-    void fetch(import.meta.env.PUBLIC_API_URL as string, {
+    void fetch(import.meta.env.PUBLIC_API_URL, {
       headers: {
-        'x-api-key': import.meta.env.PUBLIC_API_KEY as string,
+        'x-api-key': import.meta.env.PUBLIC_API_KEY,
       },
     })
       .then((res) => res.json())
