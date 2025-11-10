@@ -36,6 +36,7 @@ export default function Header() {
               rel="noopener noreferrer"
               target="_blank"
             >
+              {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
               <Linkedin size={18} />
               <span className="text-sm">LinkedIn</span>
             </a>
@@ -45,6 +46,7 @@ export default function Header() {
               rel="noopener noreferrer"
               target="_blank"
             >
+              {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
               <Github size={18} />
               <span className="text-sm">GitHub</span>
             </a>
