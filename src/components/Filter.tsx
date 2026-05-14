@@ -17,10 +17,10 @@ export default function Filter() {
       });
   }, []);
 
-  const filteredWords = useMemo(
-    () => words.filter((word) => word.includes(value)),
-    [value, words],
-  );
+  const filteredWords = useMemo(() => {
+    const filterValue = value.toLowerCase();
+    return words.filter((word) => word.includes(filterValue));
+  }, [value, words]);
 
   return (
     <div className="flex flex-col items-center w-full">
