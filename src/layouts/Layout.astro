@@ -1,6 +1,6 @@
 ---
 // eslint-disable-next-line import/no-unresolved
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 
 import type routes from '../utils/routes';
 
@@ -20,7 +20,7 @@ const { page } = Astro.props;
     <link href="/favicon.ico" rel="icon" type="image/svg+xml" />
     <meta content={Astro.generator} name="generator" />
     <title>{page.title}</title>
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body class="bg-slate-100" style="min-height: 100vh">
     <div class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
